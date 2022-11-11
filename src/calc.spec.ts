@@ -89,5 +89,5 @@ test('single match with over sku qty', () => {
 		qty: 2
 	},
 	];
-	expect(calc(products, sets)).toEqual(sets);
+	expect(calc(products, sets)).toEqual([sets[0]]);
 });
