@@ -60,5 +60,5 @@ test('single match with the same', () => {
 		name: "cola",
 		qty: 1
 	}];
-	expect(calc(products, sets)).toEqual(sets[0]);
+	expect(calc(products, sets)).toEqual([sets[0]]);
 });
