@@ -7,14 +7,13 @@ export function calc(products, sets) {
 
 function pickBestSets(matchedSets: any) {
 	let maxAmount = 0;
-	const result = (matchedSets || []).reduce((acc, cur) => {
+	return (matchedSets || []).reduce((acc, cur) => {
 		if (cur.amount > maxAmount) {
 			maxAmount = cur.amount;
 			acc = cur;
 		}
 		return acc;
 	}, null);
-	return result;
 }
 
 function getMatchedSets(sets: any, products: any) {
