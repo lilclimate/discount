@@ -1,8 +1,8 @@
 export function calc(products, sets) {
 	const productsMap = parseProduct(products);
 	const matchedSets = getMatchedSets(sets, productsMap);
-	const result = pickBestSets(matchedSets);
-	return [result];	
+	const matchedSet = pickBestSets(matchedSets);
+	return matchedSet;	
 };
 
 function pickBestSets(matchedSets: any) {

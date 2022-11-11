@@ -60,7 +60,7 @@ test('single match with the same', () => {
 		name: "cola",
 		qty: 1
 	}];
-	expect(calc(products, sets)).toEqual([sets[0]]);
+	expect(calc(products, sets)).toEqual(sets[0]);
 });
 
 test('single match with over sku type', () => { 
@@ -76,7 +76,7 @@ test('single match with over sku type', () => {
 		name: "crisps",
 		qty: 1
 	}];
-	expect(calc(products, sets)).toEqual([sets[0]]);
+	expect(calc(products, sets)).toEqual(sets[0]);
 });
 
 test('single match with over sku qty', () => { 
@@ -89,7 +89,7 @@ test('single match with over sku qty', () => {
 		qty: 2
 	},
 	];
-	expect(calc(products, sets)).toEqual([sets[0]]);
+	expect(calc(products, sets)).toEqual(sets[0]);
 });
 
 
@@ -107,5 +107,5 @@ test('multiple matches and pick the best', () => {
 			qty: 1
 		}
 	];
-	expect(calc(products, sets)).toEqual([sets[3]]);
+	expect(calc(products, sets)).toEqual(sets[3]);
 });
