@@ -62,3 +62,32 @@ test('single match with the same', () => {
 	}];
 	expect(calc(products, sets)).toEqual([sets[0]]);
 });
+
+test('single match with over sku type', () => { 
+	const products = [{
+		name: "sprite",
+		qty: 1
+	},
+	{
+		name: "cola",
+		qty: 1
+		},
+	{
+		name: "crisps",
+		qty: 1
+	}];
+	expect(calc(products, sets)).toEqual([sets[0]]);
+});
+
+test('single match with over sku qty', () => { 
+	const products = [{
+		name: "sprite",
+		qty: 1
+	},
+	{
+		name: "cola",
+		qty: 2
+	},
+	];
+	expect(calc(products, sets)).toEqual([sets[0]]);
+});
