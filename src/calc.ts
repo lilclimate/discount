@@ -1,8 +1,21 @@
 export function calc(products, sets) {
 	const productsMap = parseProduct(products);
 	const matchedSets = getMatchedSets(sets, productsMap);
-	return matchedSets;	
+	const result = pickBestSets(matchedSets);
+	return [result];	
 };
+
+function pickBestSets(matchedSets: any) {
+	let maxAmount = 0;
+	const result = (matchedSets || []).reduce((acc, cur) => {
+		if (cur.amount > maxAmount) {
+			maxAmount = cur.amount;
+			acc = cur;
+		}
+		return acc;
+	}, {});
+	return result;
+}
 
 function getMatchedSets(sets: any, products: any) {
 	return sets.reduce((acc, cur) => {

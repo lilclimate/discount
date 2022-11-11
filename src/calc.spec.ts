@@ -91,3 +91,21 @@ test('single match with over sku qty', () => {
 	];
 	expect(calc(products, sets)).toEqual([sets[0]]);
 });
+
+
+test('multiple matches and pick the best', () => { 
+	const products = [{
+		name: "sprite",
+		qty: 2
+	},
+	{
+		name: "cola",
+		qty: 1
+	},
+		{
+			name: "water",
+			qty: 1
+		}
+	];
+	expect(calc(products, sets)).toEqual([sets[3]]);
+});
