@@ -12,7 +12,7 @@ const sets = [{
 },{
 	skus: [{
 		name: "water",
-		qty: 1
+		qty: 2
 	}, {
 		name: "cola",
 		qty: 1
@@ -41,7 +41,6 @@ const sets = [{
 	amount: 3
 }];
 
-// TODO: 
 // happy path
 // single match with the same
 // single match with over sku type
@@ -108,4 +107,24 @@ test('multiple matches and pick the best', () => {
 		}
 	];
 	expect(calc(products, sets)).toEqual(sets[3]);
+});
+
+test('not match when miss sku type', () => { 
+	const products = [{
+		name: "sprite",
+		qty: 1
+	}];
+	expect(calc(products, sets)).toEqual(null);
+});
+
+test('not match when miss sku type', () => { 
+	const products = [
+		{
+		name: "water",
+		qty: 1
+	},{
+		name: "cola",
+		qty: 1
+	}];
+	expect(calc(products, sets)).toEqual(null);
 });

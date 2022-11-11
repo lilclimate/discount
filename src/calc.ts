@@ -13,7 +13,7 @@ function pickBestSets(matchedSets: any) {
 			acc = cur;
 		}
 		return acc;
-	}, {});
+	}, null);
 	return result;
 }
 
