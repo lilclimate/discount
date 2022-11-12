@@ -39,6 +39,12 @@ const sets = [{
 		qty: 1
 	}],
 	price: 0,
+},{
+	skus: [{
+		name: "crisps",
+		qty: 2
+	}],
+	price: 3,
 }];
 
 // happy path
@@ -143,4 +149,12 @@ test('not match when miss sku type', () => {
 	expect(calc(products, sets)).toEqual(null);
 });
 
-test.todo('not match when discount price more than actual price');
+test('not match when discount price more than actual price', () => { 
+	const products = [
+		{
+		name: "crisps",
+		qty: 2,
+		unitPrice: 1,
+	}];
+	expect(calc(products, sets)).toEqual(null);
+});
