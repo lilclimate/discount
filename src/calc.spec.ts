@@ -8,7 +8,6 @@ const sets = [{
 		name: "cola",
 		qty: 1
 	}],
-	// amount: 1,
 	price: 1,
 },{
 	skus: [{
@@ -18,7 +17,6 @@ const sets = [{
 		name: "cola",
 		qty: 1
 	}],
-	// amount: 1,
 	price: 2,
 },{
 	skus: [{
@@ -31,7 +29,6 @@ const sets = [{
 		name: "water",
 		qty: 1
 		}],
-	// amount: 2,
 	price: 1
 },{
 	skus: [{
@@ -41,7 +38,6 @@ const sets = [{
 		name: "cola",
 		qty: 1
 	}],
-	// amount: 3,
 	price: 0,
 }];
 

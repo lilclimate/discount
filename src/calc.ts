@@ -18,20 +18,26 @@ function pickBestSets(matchedSets: any) {
 
 function getMatchedSets(sets: any, products: any) {
 	return sets.reduce((acc, cur) => {
-		const isSkuMatched = cur.skus.every(sku => products[sku.name] && products[sku.name].qty >= sku.qty
-		);
-		const matchedSkuTotalPrice = cur.skus.reduce((acc, sku) => {
-			const unitPrice = products[sku.name] ? products[sku.name].unitPrice: 0;
-			acc += sku.qty * unitPrice
-			return acc;
-		 }, 0);
-		const amount = matchedSkuTotalPrice - cur.price;
-		cur.amount = amount;
-
-		if (isSkuMatched)
+		cur.amount = getSkuDiscountAmount(cur, products);
+		if (isSkuMatched(cur, products))
 			acc.push(cur);
 		return acc;
 	}, []);
+}
+
+function isSkuMatched(cur: any, products: any) {
+	return cur.skus.every(sku => products[sku.name] && products[sku.name].qty >= sku.qty
+	);
+}
+
+function getSkuDiscountAmount(cur: any, products: any) {
+	const matchedSkuTotalPrice = cur.skus.reduce((acc, sku) => {
+		const unitPrice = products[sku.name] ? products[sku.name].unitPrice : 0;
+		acc += sku.qty * unitPrice;
+		return acc;
+	}, 0);
+	const amount = matchedSkuTotalPrice - cur.price;
+	return amount;
 }
 
 function parseProduct(products: any) {
