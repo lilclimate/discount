@@ -68,7 +68,7 @@ test('single match with the same', () => {
 		qty: 1,
 		unitPrice: 1,
 	}];
-	expect(calc(products, sets)).toEqual(sets[0]);
+	expect(calc(products, sets)).toEqual({totalPrice: 1, discountSet: sets[0]});
 });
 
 test('single match with over sku type', () => { 
@@ -87,7 +87,7 @@ test('single match with over sku type', () => {
 		qty: 1,
 		unitPrice: 1,
 	}];
-	expect(calc(products, sets)).toEqual(sets[0]);
+	expect(calc(products, sets)).toEqual({totalPrice: 2, discountSet: sets[0]});
 });
 
 test('single match with over sku qty', () => { 
@@ -102,7 +102,7 @@ test('single match with over sku qty', () => {
 		unitPrice: 1,
 	},
 	];
-	expect(calc(products, sets)).toEqual(sets[0]);
+	expect(calc(products, sets)).toEqual({totalPrice: 2, discountSet: sets[0]});
 });
 
 
@@ -123,7 +123,7 @@ test('multiple matches and pick the best', () => {
 		unitPrice: 1,
 	}
 	];
-	expect(calc(products, sets)).toEqual(sets[3]);
+	expect(calc(products, sets)).toEqual({totalPrice:1, discountSet: sets[3]});
 });
 
 test('not match when miss sku type', () => { 
@@ -132,7 +132,7 @@ test('not match when miss sku type', () => {
 		qty: 1,
 		unitPrice: 1,
 	}];
-	expect(calc(products, sets)).toEqual(null);
+	expect(calc(products, sets)).toEqual({totalPrice: 1, discountSet:null});
 });
 
 test('not match when miss sku type', () => { 
@@ -146,7 +146,10 @@ test('not match when miss sku type', () => {
 		qty: 1,
 		unitPrice: 1,
 	}];
-	expect(calc(products, sets)).toEqual(null);
+	expect(calc(products, sets)).toEqual({
+		totalPrice: 2,
+		discountSet: null,
+	});
 });
 
 test('not match when discount price more than actual price', () => { 
@@ -156,5 +159,8 @@ test('not match when discount price more than actual price', () => {
 		qty: 2,
 		unitPrice: 1,
 	}];
-	expect(calc(products, sets)).toEqual(null);
+	expect(calc(products, sets)).toEqual({
+		totalPrice: 2,
+		discountSet :null
+	});
 });

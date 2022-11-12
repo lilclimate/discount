@@ -2,7 +2,20 @@ export function calc(products, sets) {
 	const productsMap = parseProduct(products);
 	const matchedSets = getMatchedSets(sets, productsMap);
 	const matchedSet = pickBestSets(matchedSets);
-	return matchedSet;	
+
+	const setMap = (matchedSet?.skus ||[] ).reduce((acc, cur) => {
+		acc[cur.name] = cur.qty
+		return acc;
+	}, {});
+	const remainingTotalPrice = products.reduce((acc, cur) => { 
+		const remainingQty = setMap[cur.name] ? cur.qty - setMap[cur.name]: cur.qty
+		acc += remainingQty * cur.unitPrice;
+		return acc;
+	}, 0);
+
+	const totalPrice = remainingTotalPrice + (matchedSet ? matchedSet.price : 0);
+
+	return {totalPrice, discountSet: matchedSet};	
 };
 
 function pickBestSets(matchedSets: any) {
