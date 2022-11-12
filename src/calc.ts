@@ -18,10 +18,17 @@ function pickBestSets(matchedSets: any) {
 
 function getMatchedSets(sets: any, products: any) {
 	return sets.reduce((acc, cur) => {
-		const isMatched = cur.skus.every(sku => products[sku.name] && products[sku.name] >= sku.qty
+		const isSkuMatched = cur.skus.every(sku => products[sku.name] && products[sku.name].qty >= sku.qty
 		);
+		const matchedSkuTotalPrice = cur.skus.reduce((acc, sku) => {
+			const unitPrice = products[sku.name] ? products[sku.name].unitPrice: 0;
+			acc += sku.qty * unitPrice
+			return acc;
+		 }, 0);
+		const amount = matchedSkuTotalPrice - cur.price;
+		cur.amount = amount;
 
-		if (isMatched)
+		if (isSkuMatched)
 			acc.push(cur);
 		return acc;
 	}, []);
@@ -29,7 +36,10 @@ function getMatchedSets(sets: any, products: any) {
 
 function parseProduct(products: any) {
 	return products.reduce((acc, cur) => {
-		acc[cur.name] = cur.qty;
+		acc[cur.name] = {
+			qty: cur.qty,
+			unitPrice: cur.unitPrice,
+		};
 		return acc;
 	}, {});
 }

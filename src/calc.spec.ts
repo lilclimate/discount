@@ -8,7 +8,7 @@ const sets = [{
 		name: "cola",
 		qty: 1
 	}],
-	amount: 1,
+	// amount: 1,
 	price: 1,
 },{
 	skus: [{
@@ -18,7 +18,7 @@ const sets = [{
 		name: "cola",
 		qty: 1
 	}],
-	amount: 1,
+	// amount: 1,
 	price: 2,
 },{
 	skus: [{
@@ -31,7 +31,7 @@ const sets = [{
 		name: "water",
 		qty: 1
 		}],
-	amount: 2,
+	// amount: 2,
 	price: 1
 },{
 	skus: [{
@@ -41,7 +41,7 @@ const sets = [{
 		name: "cola",
 		qty: 1
 	}],
-	amount: 3,
+	// amount: 3,
 	price: 0,
 }];
 
@@ -54,6 +54,7 @@ const sets = [{
 // sad path
 // not match when miss sku type
 // not match when sku qty not enough
+// not match when discount price more than actual price
 test('single match with the same', () => { 
 	const products = [{
 		name: "sprite",
@@ -145,3 +146,5 @@ test('not match when miss sku type', () => {
 	}];
 	expect(calc(products, sets)).toEqual(null);
 });
+
+test.todo('not match when discount price more than actual price');
