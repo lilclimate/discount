@@ -8,7 +8,8 @@ const sets = [{
 		name: "cola",
 		qty: 1
 	}],
-	amount: 1
+	amount: 1,
+	price: 1,
 },{
 	skus: [{
 		name: "water",
@@ -17,7 +18,8 @@ const sets = [{
 		name: "cola",
 		qty: 1
 	}],
-	amount: 1
+	amount: 1,
+	price: 2,
 },{
 	skus: [{
 		name: "sprite",
@@ -29,7 +31,8 @@ const sets = [{
 		name: "water",
 		qty: 1
 		}],
-	amount: 2
+	amount: 2,
+	price: 1
 },{
 	skus: [{
 		name: "sprite",
@@ -38,7 +41,8 @@ const sets = [{
 		name: "cola",
 		qty: 1
 	}],
-	amount: 3
+	amount: 3,
+	price: 0,
 }];
 
 // happy path
@@ -53,11 +57,13 @@ const sets = [{
 test('single match with the same', () => { 
 	const products = [{
 		name: "sprite",
-		qty: 1
+		qty: 1,
+		unitPrice: 1,
 	},
 	{
 		name: "cola",
-		qty: 1
+		qty: 1,
+		unitPrice: 1,
 	}];
 	expect(calc(products, sets)).toEqual(sets[0]);
 });
@@ -65,15 +71,18 @@ test('single match with the same', () => {
 test('single match with over sku type', () => { 
 	const products = [{
 		name: "sprite",
-		qty: 1
+		qty: 1,
+		unitPrice: 1,
 	},
 	{
 		name: "cola",
-		qty: 1
+		qty: 1,
+		unitPrice: 1,
 		},
 	{
 		name: "crisps",
-		qty: 1
+		qty: 1,
+		unitPrice: 1,
 	}];
 	expect(calc(products, sets)).toEqual(sets[0]);
 });
@@ -81,11 +90,13 @@ test('single match with over sku type', () => {
 test('single match with over sku qty', () => { 
 	const products = [{
 		name: "sprite",
-		qty: 1
+		qty: 1,
+		unitPrice: 1,
 	},
 	{
 		name: "cola",
-		qty: 2
+		qty: 2,
+		unitPrice: 1,
 	},
 	];
 	expect(calc(products, sets)).toEqual(sets[0]);
@@ -95,16 +106,19 @@ test('single match with over sku qty', () => {
 test('multiple matches and pick the best', () => { 
 	const products = [{
 		name: "sprite",
-		qty: 2
+		qty: 2,
+		unitPrice: 1,
 	},
 	{
 		name: "cola",
-		qty: 1
+		qty: 1,
+		unitPrice: 1,
 	},
-		{
-			name: "water",
-			qty: 1
-		}
+	{
+		name: "water",
+		qty: 1,
+		unitPrice: 1,
+	}
 	];
 	expect(calc(products, sets)).toEqual(sets[3]);
 });
@@ -112,7 +126,8 @@ test('multiple matches and pick the best', () => {
 test('not match when miss sku type', () => { 
 	const products = [{
 		name: "sprite",
-		qty: 1
+		qty: 1,
+		unitPrice: 1,
 	}];
 	expect(calc(products, sets)).toEqual(null);
 });
@@ -121,10 +136,12 @@ test('not match when miss sku type', () => {
 	const products = [
 		{
 		name: "water",
-		qty: 1
+		qty: 1,
+		unitPrice: 1,
 	},{
 		name: "cola",
-		qty: 1
+		qty: 1,
+		unitPrice: 1,
 	}];
 	expect(calc(products, sets)).toEqual(null);
 });
