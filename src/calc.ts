@@ -2,21 +2,33 @@ export function calc(products, sets) {
 	const productsMap = parseProduct(products);
 	const matchedSets = getMatchedSets(sets, productsMap);
 	const matchedSet = pickBestSets(matchedSets);
-
-	const setMap = (matchedSet?.skus ||[] ).reduce((acc, cur) => {
-		acc[cur.name] = cur.qty
-		return acc;
-	}, {});
-	const remainingTotalPrice = products.reduce((acc, cur) => { 
-		const remainingQty = setMap[cur.name] ? cur.qty - setMap[cur.name]: cur.qty
-		acc += remainingQty * cur.unitPrice;
-		return acc;
-	}, 0);
-
-	const totalPrice = remainingTotalPrice + (matchedSet ? matchedSet.price : 0);
+	const totalPrice = getTotalPrice(matchedSet, products);
 
 	return {totalPrice, discountSet: matchedSet};	
 };
+
+function getTotalPrice(matchedSet: any, products: any) {
+	const setMap = parseSet(matchedSet);
+	const remainingTotalPrice = getRemainingTotalPrice(products, setMap);
+	const setPrice = matchedSet ? matchedSet.price : 0;
+	const totalPrice = remainingTotalPrice + setPrice;
+	return totalPrice;
+}
+
+function getRemainingTotalPrice(products: any, setMap: any) {
+	return products.reduce((acc, cur) => {
+		const remainingQty = setMap[cur.name] ? cur.qty - setMap[cur.name] : cur.qty;
+		acc += remainingQty * cur.unitPrice;
+		return acc;
+	}, 0);
+}
+
+function parseSet(matchedSet: any) {
+	return (matchedSet?.skus || []).reduce((acc, cur) => {
+		acc[cur.name] = cur.qty;
+		return acc;
+	}, {});
+}
 
 function pickBestSets(matchedSets: any) {
 	let maxAmount = 0;
