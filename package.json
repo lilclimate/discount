@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "vitest": "^0.25.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }

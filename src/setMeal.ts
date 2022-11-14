@@ -1,3 +1,4 @@
+import lodash from "lodash";
 export function calc(products, sets) {
 	const productsMap = parseProduct(products);
 	const matchedSets = getMatchedSets(sets, productsMap);
@@ -28,6 +29,10 @@ function parseSet(matchedSet: any) {
 	}, {});
 }
 function pickBestSets(matchedSets: any) {
+	let set = null;
+	if (lodash.isEmpty(matchedSets)) return set;
+	if (matchedSets.length === 0) return matchedSets[0]; 
+
 	let maxAmount = 0;
 	return (matchedSets || []).reduce((acc, cur) => {
 		if (cur.amount > maxAmount) {
@@ -35,7 +40,7 @@ function pickBestSets(matchedSets: any) {
 			acc = cur;
 		}
 		return acc;
-	}, null);
+	}, set);
 }
 function getMatchedSets(sets: any, products: any) {
 	return sets.reduce((acc, cur) => {
