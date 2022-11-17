@@ -17,7 +17,7 @@ export function validTimeRange(timeRange: string, currentTime: number = now()) {
 };
 
 export function validWeek(days: number[], currentTime: number = now()) { 
-	return days.every(day => day === dayjs(currentTime * 1000).day());
+	return days.some(day => day === dayjs(currentTime * 1000).day());
 }
 
 function now(): number {
