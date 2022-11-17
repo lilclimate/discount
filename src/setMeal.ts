@@ -31,7 +31,7 @@ function parseSet(matchedSet: any) {
 function pickBestSets(matchedSets: any) {
 	let set = null;
 	if (lodash.isEmpty(matchedSets)) return set;
-	if (matchedSets.length === 0) return matchedSets[0]; 
+	if (matchedSets.length === 1) return matchedSets[0]; 
 
 	let maxAmount = 0;
 	return (matchedSets || []).reduce((acc, cur) => {
