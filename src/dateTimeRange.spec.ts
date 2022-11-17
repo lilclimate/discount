@@ -55,3 +55,9 @@ test('match week', () => {
 	let currentTime = dayjs('2022.11.04 02:00').unix();
 	expect(validWeek([5], currentTime)).toBeTruthy();	
 });
+
+test('not match combination rules', () => {
+	let currentTime = dayjs('2022.11.11 14:00').unix();
+	const ranges = calc(rules, currentTime);
+	expect(ranges).toEqual([]);
+});
