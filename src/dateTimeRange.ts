@@ -16,6 +16,10 @@ export function validTimeRange(timeRange: string, currentTime: number = now()) {
 	return end >= currentTime && start < currentTime;
 };
 
+export function validWeek(days: number[], currentTime: number = now()) { 
+	return days.every(day => day === dayjs(currentTime * 1000).day());
+}
+
 function now(): number {
 	return dayjs().unix();
 }

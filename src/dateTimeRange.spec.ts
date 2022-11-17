@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { calc, validDateRange, validTimeRange}  from "./dateTimeRange";
+import { calc, validDateRange, validTimeRange, validWeek}  from "./dateTimeRange";
 import dayjs from 'dayjs';
 
 // Tasking
@@ -49,4 +49,9 @@ test('match non cross day time range', () => {
 test('match cross day time range', () => {
 	let currentTime = dayjs('2022.11.04 02:00').unix();
 	expect(validTimeRange(rules[2].timeRange[0], currentTime)).toBeTruthy();	
+});
+
+test('match week', () => {
+	let currentTime = dayjs('2022.11.04 02:00').unix();
+	expect(validWeek([5], currentTime)).toBeTruthy();	
 });
