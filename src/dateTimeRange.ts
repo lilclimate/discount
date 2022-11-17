@@ -1,5 +1,15 @@
 import dayjs from "dayjs";
-export function calc(rules: any[], currentTime: number = now()) {
+
+type TimeRange = number[]
+type TimeRangeStr = string;
+
+type Rule = {
+	dateRange: TimeRange;
+	timeRange: TimeRangeStr[];
+	week: number[];
+};
+
+export function calc(rules: Rule[], currentTime: number = now()) {
 	return (rules || []).filter(rule => { 
 		return validCombinationTimeRange(rule.timeRange, currentTime) && validWeek(rule.week, currentTime) && validDateRange(rule.dateRange, currentTime);
 	}).sort((a, b) => {
@@ -7,20 +17,19 @@ export function calc(rules: any[], currentTime: number = now()) {
   });
 };
 
-export function validDateRange(dateRange: number[], currentTime: number = now()) {
+export function validDateRange(dateRange: TimeRange, currentTime: number = now()) {
 	return validTimeRange(dateRange, currentTime);
-
 };
 
-export function validCombinationTimeRange(timeRanges: string[], currentTime: number = now()) {
-	return timeRanges.some(timeRange => validTimeRange(makeTimeRange(timeRange, currentTime), currentTime));
+export function validCombinationTimeRange(combinationTimeRange: TimeRangeStr[], currentTime: number = now()) {
+	return combinationTimeRange.some(timeRange => validTimeRange(makeTimeRange(timeRange, currentTime), currentTime));
 };
 
-function validTimeRange(timeRange: any[], time: number) {
+function validTimeRange(timeRange: TimeRange, time: number) {
 	return timeRange[1] >= time && timeRange[0] < time;
 }
 
-function makeTimeRange(timeRange: string, time: number) {
+function makeTimeRange(timeRange: TimeRangeStr, time: number) {
 	const range = timeRange.split('-');
 	const date = dayjs(time * 1000).format("YYYY.MM.DD");
 	const end = dayjs(`${date} ${range[1]}`).unix();
