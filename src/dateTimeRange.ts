@@ -1,8 +1,7 @@
 import dayjs from "dayjs";
 export function calc(rules: any[], currentTime: number = now()) {
 	return (rules || []).filter(rule => { 
-		const isMatchedTimeRange = rule.timeRange.some(timeRange => validCombinationTimeRange(timeRange, currentTime));
-		return isMatchedTimeRange && validWeek(rule.week, currentTime) && validDateRange(rule.dateRange, currentTime);
+		return validCombinationTimeRange(rule.timeRange, currentTime) && validWeek(rule.week, currentTime) && validDateRange(rule.dateRange, currentTime);
 	}).sort((a, b) => {
     return a.dateRange[1] - b.dateRange[1];
   });
@@ -13,8 +12,8 @@ export function validDateRange(dateRange: number[], currentTime: number = now())
 
 };
 
-export function validCombinationTimeRange(timeRange: string, currentTime: number = now()) {
-	return validTimeRange(makeTimeRange(timeRange, currentTime), currentTime);
+export function validCombinationTimeRange(timeRanges: string[], currentTime: number = now()) {
+	return timeRanges.some(timeRange => validTimeRange(makeTimeRange(timeRange, currentTime), currentTime));
 };
 
 function validTimeRange(timeRange: any[], time: number) {

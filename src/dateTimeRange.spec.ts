@@ -43,12 +43,12 @@ test('match date range', () => {
 
 test('match non cross day time range', () => {
 	let currentTime = dayjs('2022.11.03 09:00').unix();
-	expect(validCombinationTimeRange(rules[2].timeRange[1], currentTime)).toBeTruthy();	
+	expect(validCombinationTimeRange([rules[2].timeRange[1]], currentTime)).toBeTruthy();	
 });
 
 test('match cross day time range', () => {
 	let currentTime = dayjs('2022.11.04 02:00').unix();
-	expect(validCombinationTimeRange(rules[2].timeRange[0], currentTime)).toBeTruthy();	
+	expect(validCombinationTimeRange([rules[2].timeRange[0]], currentTime)).toBeTruthy();	
 });
 
 test('match week', () => {
