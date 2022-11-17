@@ -10,10 +10,10 @@ import dayjs from 'dayjs';
 // 命中->当前时间在跨天区间内
 // 命中->当前时间在指定周x内
 // sad path
-// TODO: 未命中->当前时间不在组合区间内
-// TODO: 未命中->当前时间不在日期区间内
-// TODO: 未命中->当前时间不在跨天区间内
-// TODO: 未命中->当前时间不在指定周x内
+// 未命中->当前时间不在组合区间内
+// 未命中->当前时间不在日期区间内
+// 未命中->当前时间不在跨天区间内
+// 未命中->当前时间不在指定周x内
 // TODO: 抛错:时间区间规则错误
 
 const rules = [{
@@ -60,4 +60,20 @@ test('not match combination rules', () => {
 	let currentTime = dayjs('2022.11.11 14:00').unix();
 	const ranges = calc(rules, currentTime);
 	expect(ranges).toEqual([]);
+});
+
+
+test('not match non cross day time range', () => {
+	let currentTime = dayjs('2022.11.03 19:00').unix();
+	expect(validCombinationTimeRange([rules[2].timeRange[1]], currentTime)).toBeFalsy();	
+});
+
+test('not match cross day time range', () => {
+	let currentTime = dayjs('2022.11.04 04:00').unix();
+	expect(validCombinationTimeRange([rules[2].timeRange[0]], currentTime)).toBeFalsy();	
+});
+
+test('not match week', () => {
+	let currentTime = dayjs('2022.11.04 02:00').unix();
+	expect(validWeek([6], currentTime)).toBeFalsy();	
 });
