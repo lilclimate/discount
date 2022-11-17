@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { calc, validDate}  from "./dateTimeRange";
+import { calc, validDateRange, validTimeRange}  from "./dateTimeRange";
 import dayjs from 'dayjs';
 
 // Tasking
@@ -36,7 +36,12 @@ test.todo('match combination rules', () => {
 	expect(ranges).toEqual([rules[2], rules[0]]);
 });
 
-test('match date', () => {
+test('match date range', () => {
 	let currentTime = dayjs('2022.11.03 14:00').unix();
-	expect(validDate(rules[0].dateRange, currentTime)).toBeTruthy();
+	expect(validDateRange(rules[0].dateRange, currentTime)).toBeTruthy();
+});
+
+test('match non cross day time range', () => {
+	let currentTime = dayjs('2022.11.03 09:00').unix();
+	expect(validTimeRange(rules[0].timeRange[1], currentTime)).toBeTruthy();	
 });
