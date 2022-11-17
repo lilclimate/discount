@@ -1,5 +1,11 @@
 import dayjs from "dayjs";
 export function calc(rules: any[], currentTime: number = now()) {
+	return (rules || []).filter(rule => { 
+		const isMatchedTimeRange = rule.timeRange.some(timeRange => validTimeRange(timeRange, currentTime));
+		return isMatchedTimeRange && validWeek(rule.week, currentTime) && validDateRange(rule.dateRange, currentTime);
+	}).sort((a, b) => {
+    return a.dateRange[1] - b.dateRange[1];
+  });
 };
 
 export function validDateRange(dateRange: number[], currentTime: number = now()) {

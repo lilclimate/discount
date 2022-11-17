@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 // Tasking
 // happy path
-// TODO: 命中->当前时间在日期区间、时间区间、指定周几内
+// 命中->当前时间在日期区间、时间区间、指定周几内
 // 命中->当前时间在日期区间内
 // 命中->当前时间在非跨天区间内
 // 命中->当前时间在跨天区间内
@@ -30,7 +30,7 @@ const rules = [{
 	week: [1, 2, 4, 5, 6, 7],
 }];
 
-test.todo('match combination rules', () => {
+test('match combination rules', () => {
 	let currentTime = dayjs('2022.11.03 14:00').unix();
 	const ranges = calc(rules, currentTime);
 	expect(ranges).toEqual([rules[2], rules[0]]);
