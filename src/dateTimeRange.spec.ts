@@ -77,3 +77,10 @@ test('not match week', () => {
 	let currentTime = dayjs('2022.11.04 02:00').unix();
 	expect(validWeek([6], currentTime)).toBeFalsy();	
 });
+
+test('should throw date range error', () => {
+	let currentTime = dayjs('2022.11.03 14:00').unix();
+	expect(() => {
+		validDateRange([1667663940, 1667232000], currentTime)
+	}).toThrowError('date range error');
+});

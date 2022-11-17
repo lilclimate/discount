@@ -18,6 +18,7 @@ export function calc(rules: Rule[], currentTime: number = now()) {
 };
 
 export function validDateRange(dateRange: TimeRange, currentTime: number = now()) {
+	if (dateRange[1] <= dateRange[0]) throw new Error('date range error');
 	return validTimeRange(dateRange, currentTime);
 };
 
